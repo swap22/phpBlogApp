@@ -42,6 +42,58 @@
 				
 			</div>
 		</nav>
+		<div class="Line" style="height: 10px; background: #27aae1;"></div>
+		<div class="container-fluid">
+		<div class="row">
+			
+			<div class="col-sm-2">
+			<br><br>
+			<ul id="Side_Menu" class="nav nav-pills nav-stacked">
+			<li class="active">
+			<a href="dashboard.php">
+			<span class="glyphicon glyphicon-th"></span>
+			&nbsp;Dashboard</a></li>
+			<li><a href="#">
+			<span class="glyphicon glyphicon-list-alt"></span>
+			&nbsp;Add New Post</a></li>
+			<li><a href="#">
+			<span class="glyphicon glyphicon-tags"></span>
+			&nbsp;Categories</a></li>
+			<li><a href="#">
+			<span class="glyphicon glyphicon-user"></span>
+			&nbsp;Manage Admins</a></li>
+			<li><a href="#">
+			<span class="glyphicon glyphicon-comment"></span>
+			&nbsp;Comments
+		
+		<span class="label pull-right label-warning">
+		
+		</span>
+				
+		
+			</a>	
+			</li>
+			<li><a href="#" target="_Blank">
+			<span class="glyphicon glyphicon-equalizer"></span>
+			&nbsp;Live Blog</a></li>
+			<li><a href="#">
+			<span class="glyphicon glyphicon-log-out"></span>
+			&nbsp;Logout</a></li>	
+				
+			</ul>
+			
+			
+			
+			
+			</div> <!-- Ending of Side area -->
+			<div class="col-sm-10"> <!--Main Area-->
+			
+				
+			</div> <!-- Ending of Main Area-->
+			
+		</div> <!-- Ending of Row-->
+			
+		</div> <!-- Ending of Container-->
 		<div id="Footer">
 		<hr><p>  Swapnil Sharma &copy;2017-2020 --- All right reserved.
 		</p>	
