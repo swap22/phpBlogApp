@@ -87,6 +87,71 @@
 			
 			</div> <!-- Ending of Side area -->
 			<div class="col-sm-10"> <!--Main Area-->
+			<h1>Admin Dashboard</h1>
+			
+				
+			
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th>No</th>
+					<th>Post Title</th>
+					<th>Date &Time</th>
+					<th>Author</th>
+					<th>Category</th>
+					<th>Banner</th>
+					<th>Comments</th>
+					<th>Action</th>
+					<th>Details</th>
+					
+				</tr>
+				<tr>
+				
+			<td></td>
+			<td style="color: #5e5eff;">
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><img src="" alt="banner"></td>
+			<td>
+		
+		<span class="label pull-right label-success">
+		
+		</span>
+				
+				<span class="label  label-danger">
+		
+		</span>
+				
+					
+				
+			</td>
+			<td>
+			<a href="#">
+			<span class="btn btn-warning">Edit</span>
+			</a>
+			<a href="#">
+			<span class="btn btn-danger">Delete</span>
+			</a>
+			</td>
+			<td>
+			<a href="#" target="_blank">
+			<span class="btn btn-primary"> Live Preview</span>
+			</a>
+			</td>
+			</tr>
+			
+			
+		
+
+
+
+
+
+
+			</table>
+		</div>
 			
 				
 			</div> <!-- Ending of Main Area-->
