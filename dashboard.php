@@ -42,6 +42,13 @@
 				
 			</div>
 		</nav>
+		<div id="Footer">
+		<hr><p>  Swapnil Sharma &copy;2017-2020 --- All right reserved.
+		</p>	
+		</div>
+		<div style="height: 10px; background: #27AAE1;"></div> 
+
+
 				
 	</body>
 	<script src="vendors/js/jquery.min.js"></script>
