@@ -7,7 +7,7 @@
 				<link rel="stylesheet" href="resources/css/adminstyles.css">
 	</head>
 	<body>
-		<div style="height: 10px; background: #27aae1;"></div>
+		<div style="height: 10px; background: #830ab3;"></div>
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -42,7 +42,7 @@
 				
 			</div>
 		</nav>
-		<div class="Line" style="height: 10px; background: #27aae1;"></div>
+		<div class="Line" style="height: 15px; background: #830ab3;"></div>
 		<div class="container-fluid">
 		<div class="row">
 			
