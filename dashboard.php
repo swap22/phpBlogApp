@@ -1,3 +1,6 @@
+<?php require_once("Include/db.php"); ?>
+<?php require_once("Include/Sessions.php"); ?>
+
 <!DOCTYPE>
 
 <html>

@@ -1,3 +1,17 @@
+<?php require_once("Include/db.php"); ?>
+<?php require_once("Include/Sessions.php"); ?>
+<?php
+if(isset($_POST["Submit"])){
+$Category=mysql_real_escape_string($_POST["Category"]);
+date_default_timezone_set("Asia/Kolkata");
+$CurrentTime=time();
+//$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
+$DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
+$DateTime;
+
+}
+?>
+
 <!DOCTYPE>
 
 <html>
