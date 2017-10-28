@@ -1,5 +1,6 @@
 <?php require_once("Include/db.php"); ?>
 <?php require_once("Include/Sessions.php"); ?>
+<?php require_once("Include/Functions.php"); ?>
 
 <!DOCTYPE>
 
