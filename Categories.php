@@ -1,5 +1,6 @@
 <?php require_once("Include/db.php"); ?>
 <?php require_once("Include/Sessions.php"); ?>
+<?php require_once("Include/Functions.php"); ?>
 <?php
 if(isset($_POST["Submit"])){
 $Category=mysql_real_escape_string($_POST["Category"]);
@@ -8,6 +9,15 @@ $CurrentTime=time();
 //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
 $DateTime;
+if(empty($Category)){
+	$_SESSION["ErrorMessage"]="All Fields must be filled out";
+	Redirect_to("Categories.php");
+	
+}elseif(strlen($Category)>99){
+	$_SESSION["ErrorMessage"]="Too long Name for Category";
+	Redirect_to("Categories.php");
+	
+}
 
 }
 ?>
@@ -102,6 +112,9 @@ $DateTime;
 	</div> <!-- Ending of Side area -->
 	<div class="col-sm-10">
 	<h1>Manage Categories</h1>
+		<?php echo Message();
+	      echo SuccessMessage();
+		?>
 	
 <div>
 <form action="Categories.php" method="post">
