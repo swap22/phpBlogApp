@@ -1,49 +1,57 @@
 <?php require_once("Include/db.php"); ?>
 <?php require_once("Include/Sessions.php"); ?>
 <?php require_once("Include/Functions.php"); ?>
+
 <?php
 if(isset($_POST["Submit"])){
+$Title=mysql_real_escape_string($_POST["Title"]);
 $Category=mysql_real_escape_string($_POST["Category"]);
+$Post=mysql_real_escape_string($_POST["Post"]);
 date_default_timezone_set("Asia/Kolkata");
 $CurrentTime=time();
 //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
 $DateTime;
 $Admin="swapnil";
-if(empty($Category)){
-	$_SESSION["ErrorMessage"]="All Fields must be filled out";
-	Redirect_to("Categories.php");
+$Image=$_FILES["Image"]["name"];
+$Target="Upload/".basename($_FILES["Image"]["name"]);
+if(empty($Title)){
+	$_SESSION["ErrorMessage"]="Title can't be empty";
+	Redirect_to("AddNewPost.php");
 	
-}elseif(strlen($Category)>99){
-	$_SESSION["ErrorMessage"]="Too long Name for Category";
-	Redirect_to("Categories.php");
+}elseif(strlen($Title)<2){
+	$_SESSION["ErrorMessage"]="Title Should be at-least 2 Characters";
+	Redirect_to("AddNewPost.php");
 	
 }else{
 	global $ConnectingDB;
-	$Query="INSERT INTO category(datetime,name,creatorname)
-	VALUES('$DateTime','$Category','$Admin')";
+	$Query="INSERT INTO admin_panel(datetime,title,category,author,image,post)
+	VALUES('$DateTime','$Title','$Category','$Admin','$Image','$Post')";
 	$Execute=mysql_query($Query);
+	move_uploaded_file($_FILES["Image"]["tmp_name"],$Target);
 	if($Execute){
-	$_SESSION["SuccessMessage"]="Category Added Successfully";
-	Redirect_to("Categories.php");
+	$_SESSION["SuccessMessage"]="Post Added Successfully";
+	Redirect_to("AddNewPost.php");
 	}else{
-	$_SESSION["ErrorMessage"]="Category failed to Add";
-	Redirect_to("Categories.php");
+	$_SESSION["ErrorMessage"]="Something Went Wrong. Try Again !";
+	Redirect_to("AddNewPost.php");
 		
 	}
 	
+}	
+	
 }
 
-}
 ?>
 
 <!DOCTYPE>
 
 <html>
 	<head>
-		<title>Manage Categories</title>
+		<title>Add New Post</title>
 		 <link rel="stylesheet" href="vendors/css/bootstrap.min.css">
 		 <link rel="stylesheet" href="resources/css/adminstyles.css">
+                
 <style>
 	.FieldInfo{
     color: rgb(251, 174, 44);
@@ -67,7 +75,7 @@ if(empty($Category)){
 		<span class="icon-bar"></span>
 	</button>
 	<a class="navbar-brand" href="Blog.php">
-	   <img style="margin-top: -12px;" src="resources/images/1.jpg" width=100;height=20;>
+	   <img style="margin-top: -12px;" src="resources/images/1.jpg" width=100;height=30;>
 	</a>
 		</div>
 		<div class="collapse navbar-collapse" id="collapse">
@@ -100,10 +108,10 @@ if(empty($Category)){
 	<li ><a href="Dashboard.php">
 	<span class="glyphicon glyphicon-th"></span>
 	&nbsp;Dashboard</a></li>
-	<li><a href="AddNewPost.php">
+	<li class="active"><a href="AddNewPost.php">
 	<span class="glyphicon glyphicon-list-alt"></span>
 	&nbsp;Add New Post</a></li>
-	<li class="active"><a href="Categories.php">
+	<li><a href="Categories.php">
 	<span class="glyphicon glyphicon-tags"></span>
 	&nbsp;Categories</a></li>
 	<li><a href="Admins.php">
@@ -126,66 +134,55 @@ if(empty($Category)){
 	
 	</div> <!-- Ending of Side area -->
 	<div class="col-sm-10">
-	<h1>Manage Categories</h1>
-		<?php echo Message();
+	<h1>Add New Post</h1>
+	<?php echo Message();
 	      echo SuccessMessage();
-		?>
-	
+	?>
 <div>
-<form action="Categories.php" method="post">
+<form action="AddNewPost.php" method="post" enctype="multipart/form-data">
 	<fieldset>
 	<div class="form-group">
-	<label for="categoryname"><span class="FieldInfo">Name:</span></label>
-	<input class="form-control" type="text" name="Category" id="categoryname" placeholder="Name">
+	<label for="title"><span class="FieldInfo">Title:</span></label>
+	<input class="form-control" type="text" name="Title" id="title" placeholder="Title">
 	</div>
+	<div class="form-group">
+	<label for="categoryselect"><span class="FieldInfo">Category:</span></label>
+	<select class="form-control" id="categoryselect" name="Category" >
+	<?php
+global $ConnectingDB;
+$ViewQuery="SELECT * FROM category ORDER BY id desc";
+$Execute=mysql_query($ViewQuery);
+while($DataRows=mysql_fetch_array($Execute)){
+	$Id=$DataRows["id"];
+	$CategoryName=$DataRows["name"];
+?>	
+	<option><?php echo $CategoryName; ?></option>
+	<?php } ?>
+			
+	</select>
+	</div>
+	<div class="form-group">
+	<label for="imageselect"><span class="FieldInfo">Select Image:</span></label>
+	<input type="File" class="form-control" name="Image" id="imageselect">
+	</div>
+	<div class="form-group">
+	<label for="postarea"><span class="FieldInfo">Post:</span></label>
+	<textarea class="form-control" name="Post" id="postarea"></textarea>
 	<br>
-<input class="btn btn-success btn-block" type="Submit" name="Submit" value="Add New Category">
+<input class="btn btn-success btn-block" type="Submit" name="Submit" value="Add New Post">
 	</fieldset>
 	<br>
 </form>
 </div>
-<div class="table-responsive">
-	<table class="table table-striped table-hover">
-	<tr>
-		<th>Sr No.</th>
-		<th>Date & Time</th>
-		<th>Category Name</th>
-		<th>Creator Name</th>
-		<th>Action</th>
-	</tr>
-	<?php
-	global $ConnectingDB;
-	$ViewQuery="SELECT * FROM category ORDER BY id desc";
-	$Execute=mysql_query($ViewQuery);
-	$SrNo=0;
-	while($DataRows=mysql_fetch_array($Execute)){
-		$Id=$DataRows["id"];
-		$DateTime=$DataRows["datetime"];
-		$CategoryName=$DataRows["name"];
-		$CreatorName=$DataRows["creatorname"];
-		$SrNo++;
-	?>
 
-<tr>
-	<tr>
-	<td><?php echo $SrNo; ?></td>
-	<td><?php echo $DateTime; ?></td>
-	<td><?php echo $CategoryName; ?></td>
-	<td><?php echo $CreatorName; ?></td>
-	<td><a href="DeleteCategory.php?id=<?php echo $Id;?>">
-	<span class="btn btn-danger">Delete</span>
-	</a></td>
-	
-</tr>
-	<?php } ?>
-	</table>
-</div>
+
+
 	</div> <!-- Ending of Main Area-->
 	
 </div> <!-- Ending of Row-->
 	
 </div> <!-- Ending of Container-->
-		<div id="Footer">
+	<div id="Footer">
 			<hr><p>  Swapnil Sharma &copy;2017-2020 --- All right reserved.
 			</p>	
 		</div>
