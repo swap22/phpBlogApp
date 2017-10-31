@@ -109,50 +109,88 @@
 					<th>Details</th>
 					
 				</tr>
-				<tr>
-				
-			<td></td>
-			<td style="color: #5e5eff;">
-			</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><img src="" alt="banner"></td>
-			<td>
+				<?php
+$ConnectingDB;
+$ViewQuery="SELECT * FROM admin_panel ORDER BY id desc;";
+$Execute=mysql_query($ViewQuery);
+$SrNo=0;
+while($DataRows=mysql_fetch_array($Execute)){
+	$Id=$DataRows["id"];
+	$DateTime=$DataRows["datetime"];
+	$Title=$DataRows["title"];
+	$Category=$DataRows["category"];
+	$Admin=$DataRows["author"];
+	$Image=$DataRows["image"];
+	$Post=$DataRows["post"];
+	$SrNo++;
+	?>
+	<tr>
 		
-		<span class="label pull-right label-success">
+	<td><?php echo $SrNo; ?></td>
+	<td style="color: #5e5eff;"><?php
+	if(strlen($Title)>19){$Title=substr($Title,0,19).'..';}
+	echo $Title;
+	?></td>
+	<td><?php
+	if(strlen($DateTime)>12){$DateTime=substr($DateTime,0,12);}
+	echo $DateTime;
+	?></td>
+	<td><?php
+	if(strlen($Admin)>9){$Admin=substr($Admin,0,9);}
+	echo $Admin; ?></td>
+	<td><?php
+	if(strlen($Category)>10){$Category=substr($Category,0,10);}
+	echo $Category;
+	?></td>
+	<td><img src="Upload/<?php echo $Image; ?>" width="170px"; height="50px"></td>
+	<td>
+<?php
+$ConnectingDB;
+$QueryApproved="SELECT COUNT(*) FROM comments WHERE admin_panel_id='$Id' AND status='ON'";
+$ExecuteApproved=mysql_query($QueryApproved);
+$RowsApproved=mysql_fetch_array($ExecuteApproved);
+$TotalApproved=array_shift($RowsApproved);
+if($TotalApproved>0){
+?>
+<span class="label pull-right label-success">
+<?php echo $TotalApproved;?>
+</span>
 		
-		</span>
-				
-				<span class="label  label-danger">
+<?php } ?>
+
+<?php
+$ConnectingDB;
+$QueryUnApproved="SELECT COUNT(*) FROM comments WHERE admin_panel_id='$Id' AND status='OFF'";
+$ExecuteUnApproved=mysql_query($QueryUnApproved);
+$RowsUnApproved=mysql_fetch_array($ExecuteUnApproved);
+$TotalUnApproved=array_shift($RowsUnApproved);
+if($TotalUnApproved>0){
+?>
+<span class="label  label-danger">
+<?php echo $TotalUnApproved;?>
+</span>
 		
-		</span>
-				
-					
-				
-			</td>
-			<td>
-			<a href="#">
-			<span class="btn btn-warning">Edit</span>
-			</a>
-			<a href="#">
-			<span class="btn btn-danger">Delete</span>
-			</a>
-			</td>
-			<td>
-			<a href="#" target="_blank">
-			<span class="btn btn-primary"> Live Preview</span>
-			</a>
-			</td>
-			</tr>
-			
-			
+<?php } ?>
 		
-
-
-
-
-
+		
+	</td>
+	<td>
+	<a href="EditPost.php?Edit=<?php echo $Id; ?>">
+	<span class="btn btn-warning">Edit</span>
+	</a>
+	<a href="DeletePost.php?Delete=<?php echo $Id; ?>">
+	<span class="btn btn-danger">Delete</span>
+	</a>
+	</td>
+	<td>
+	<a href="FullPost.php?id=<?php echo $Id; ?>" target="_blank">
+	<span class="btn btn-primary"> Live Preview</span>
+	</a>
+	</td>
+	</tr>
+	
+	
+<?php } ?>
 
 			</table>
 		</div>
