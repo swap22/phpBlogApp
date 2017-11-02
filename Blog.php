@@ -56,16 +56,39 @@ nav ul li{
 <div class="Line" style="height: 10px; background: #27aae1;"></div>
 <div class="container"> <!--Container-->
 	<div class="blog-header">
-	<h1>THis is heading of the post</h1>
-	<p class="lead">This is Some heading to write about author</p>
+	<h1>Heading For Page  </h1>
+	<p class="lead">Some text to write down here</p>
 	</div>
 	<div class="row"> <!--Row-->
 		<div class="col-sm-8"> <!--Main Blog Area-->
 		<?php
 		global $ConnectingDB;
-	
+		// Query when Search Button is Active
+		if(isset($_GET["SearchButton"])){
+			$Search=$_GET["Search"];
 			
-		$ViewQuery="SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,3";
+		$ViewQuery="SELECT * FROM admin_panel
+		WHERE datetime LIKE '%$Search%' OR title LIKE '%$Search%'
+		OR category LIKE '%$Search%' OR post LIKE '%$Search%' ORDER BY id desc";
+		}
+		// QUery When Category is active URL Tab
+		elseif(isset($_GET["Category"])){
+		$Category=$_GET["Category"];
+	$ViewQuery="SELECT * FROM admin_panel WHERE category='$Category' ORDER BY id desc";	
+		}
+		// Query When Pagination is Active i.e Blog.php?Page=1
+		elseif(isset($_GET["Page"])){
+		$Page=$_GET["Page"];
+		if($Page==0||$Page<1){
+			$ShowPostFrom=0;
+		}else{
+		$ShowPostFrom=($Page*3)-3;}
+	$ViewQuery="SELECT * FROM admin_panel ORDER BY id desc LIMIT $ShowPostFrom,3";
+		}
+		// The Default Query for Blog.php Page
+		else{
+			
+		$ViewQuery="SELECT * FROM admin_panel ORDER BY id desc LIMIT 0,3";}
 		$Execute=mysql_query($ViewQuery);
 		while($DataRows=mysql_fetch_array($Execute)){
 			$PostId=$DataRows["id"];
@@ -82,7 +105,21 @@ nav ul li{
 		<div class="caption">
 			<h1 id="heading"> <?php echo htmlentities($Title); ?></h1>
 		<p class="description">Category:<?php echo htmlentities($Category); ?> Published on
-		<?php echo htmlentities($DateTime);?>		
+		<?php echo htmlentities($DateTime);?>
+<?php
+$ConnectingDB;
+$QueryApproved="SELECT COUNT(*) FROM comments WHERE admin_panel_id='$PostId' AND status='ON'";
+$ExecuteApproved=mysql_query($QueryApproved);
+$RowsApproved=mysql_fetch_array($ExecuteApproved);
+$TotalApproved=array_shift($RowsApproved);
+if($TotalApproved>0){
+?>
+<span class="badge pull-right">
+Comments: <?php echo $TotalApproved;?>
+</span>
+		
+<?php } ?>
+		
 		</p>
 		<p class="post"><?php
 		if(strlen($Post)>150){$Post=substr($Post,0,150).'...';}
@@ -95,6 +132,51 @@ nav ul li{
 			
 		</div>
 		<?php } ?>
+		<nav>
+			<ul class="pagination pull-left pagination-lg">
+	<!-- Creating backward Button -->
+	<?php
+	if(isset($Page))
+	{
+	       if($Page>1){
+		?>
+		<li><a href="Blog.php?Page=<?php echo $Page-1; ?>"> &laquo; </a></li>
+         <?php        }
+	} ?>			
+		<?php
+		global $ConnectingDB;
+		$QueryPagination="SELECT COUNT(*) FROM admin_panel";
+		$ExecutePagination=mysql_query($QueryPagination);
+		$RowPagination=mysql_fetch_array($ExecutePagination);
+		  $TotalPosts=array_shift($RowPagination);
+		 // echo $TotalPosts;
+		  $PostPagination=$TotalPosts/3;
+		  $PostPagination=ceil($PostPagination);
+		 // echo $PostPerPage;
+		
+		for($i=1;$i<=$PostPagination;$i++){
+	if(isset($Page)){
+		if($i==$Page){
+		?>
+		<li class="active"><a href="Blog.php?Page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+		<?php
+		}else{ ?>
+		<li><a href="Blog.php?Page=<?php echo $i; ?>"><?php echo $i; ?></a></li>	
+		<?php
+		}
+	}
+		} ?>
+		<!-- Creating Forward Button -->
+		<?php
+	if(isset($Page))
+	{
+	       if($Page+1<=$PostPagination){
+		?>
+		<li><a href="Blog.php?Page=<?php echo $Page+1; ?>"> &raquo; </a></li>
+         <?php        }
+	} ?>	
+		</ul>
+		</nav>
 		
 		</div> <!--Main Blog Area Ending-->
 		<div class="col-sm-offset-1 col-sm-3"> <!--Side Area -->
@@ -180,6 +262,7 @@ while($DataRows=mysql_fetch_array($Execute)){
 	
 	
 </div><!--Container Ending-->
+
 	<div id="Footer">
 			<hr><p>  Swapnil Sharma &copy;2017-2020 --- All right reserved.
 			</p>	
