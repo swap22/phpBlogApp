@@ -173,7 +173,7 @@ while($DataRows=mysql_fetch_array($Execute)){
 
 ?>
 <div class="CommentBlock">
-	<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="resources/images/1.png" width=70px; height=70px;>
+	<img style="margin-left: 10px; margin-top: 10px;" class="pull-left" src="resources/images/1.jpg" width=70px; height=70px;>
 	<p style="margin-left: 90px;" class="Comment-info"><?php echo $CommenterName; ?></p>
 	<p style="margin-left: 90px;"class="description"><?php echo $CommentDate; ?></p>
 	<p style="margin-left: 90px;" class="Comment"><?php echo nl2br($Comments); ?></p>
