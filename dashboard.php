@@ -69,12 +69,19 @@
 			<li><a href="#">
 			<span class="glyphicon glyphicon-comment"></span>
 			&nbsp;Comments
+			<?php
+$ConnectingDB;
+$QueryTotal="SELECT COUNT(*) FROM comments WHERE status='OFF'";
+$ExecuteTotal=mysql_query($QueryTotal);
+$RowsTotal=mysql_fetch_array($ExecuteTotal);
+$Total=array_shift($RowsTotal);
+if($Total>0){
+?>
+<span class="label pull-right label-warning">
+<?php echo $Total;?>
+</span>
 		
-		<span class="label pull-right label-warning">
-		
-		</span>
-				
-		
+<?php } ?>
 			</a>	
 			</li>
 			<li><a href="#" target="_Blank">
