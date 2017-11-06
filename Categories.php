@@ -1,6 +1,7 @@
 <?php require_once("Include/db.php"); ?>
 <?php require_once("Include/Sessions.php"); ?>
 <?php require_once("Include/Functions.php"); ?>
+<?php Confirm_Login(); ?>
 <?php
 if(isset($_POST["Submit"])){
 $Category=mysql_real_escape_string($_POST["Category"]);

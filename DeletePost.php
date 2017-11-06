@@ -1,12 +1,13 @@
 <?php require_once("Include/db.php"); ?>
 <?php require_once("Include/Sessions.php"); ?>
 <?php require_once("Include/Functions.php"); ?>
+<?php Confirm_Login(); ?>
 <?php
 if(isset($_POST["Submit"])){
 $Title=mysql_real_escape_string($_POST["Title"]);
 $Category=mysql_real_escape_string($_POST["Category"]);
 $Post=mysql_real_escape_string($_POST["Post"]);
-date_default_timezone_set("Asia/Karachi");
+date_default_timezone_set("Asia/Kolkata");
 $CurrentTime=time();
 //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
