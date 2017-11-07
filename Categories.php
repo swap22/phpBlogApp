@@ -10,7 +10,7 @@ $CurrentTime=time();
 //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
 $DateTime;
-$Admin="swapnil";
+$Admin=$_SESSION["Username"];
 if(empty($Category)){
 	$_SESSION["ErrorMessage"]="All Fields must be filled out";
 	Redirect_to("Categories.php");
