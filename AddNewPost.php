@@ -13,7 +13,7 @@ $CurrentTime=time();
 //$DateTime=strftime("%Y-%m-%d %H:%M:%S",$CurrentTime);
 $DateTime=strftime("%B-%d-%Y %H:%M:%S",$CurrentTime);
 $DateTime;
-$Admin="swapnil";
+$Admin=$_SESSION["Username"];
 $Image=$_FILES["Image"]["name"];
 $Target="Upload/".basename($_FILES["Image"]["name"]);
 if(empty($Title)){
