@@ -29,48 +29,48 @@
 				</div>
 				<div class="collapse navbar-collapse" id="collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Home</a></li>
-					<li class="active"><a href="#" target="_blank">Blog</a></li>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="#">Contact Us</a></li>
-					<li><a href="#">Feature</a></li>
-				</ul>
-				<form action="Blog.php" class="navbar-form navbar-right">
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" name="Search" >
-				</div>
-					<button class="btn btn-default" name="SearchButton">Go</button>
-					
-				</form>
-				</div>
-				
-			</div>
-		</nav>
-		<div class="Line" style="height: 15px; background: #830ab3;"></div>
-		<div class="container-fluid">
-		<div class="row">
+			<li><a href="#">Home</a></li>
+			<li class="active"><a href="Blog.php" target="_blank">Blog</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">Services</a></li>
+			<li><a href="#">Contact Us</a></li>
+			<li><a href="#">Feature</a></li>
+		</ul>
+		<form action="Blog.php" class="navbar-form navbar-right">
+		<div class="form-group">
+		<input type="text" class="form-control" placeholder="Search" name="Search" >
+		</div>
+	         <button class="btn btn-default" name="SearchButton">Go</button>
 			
-			<div class="col-sm-2">
-			<br><br>
-			<ul id="Side_Menu" class="nav nav-pills nav-stacked">
-			<li class="active">
-			<a href="dashboard.php">
-			<span class="glyphicon glyphicon-th"></span>
-			&nbsp;Dashboard</a></li>
-			<li><a href="#">
-			<span class="glyphicon glyphicon-list-alt"></span>
-			&nbsp;Add New Post</a></li>
-			<li><a href="#">
-			<span class="glyphicon glyphicon-tags"></span>
-			&nbsp;Categories</a></li>
-			<li><a href="#">
-			<span class="glyphicon glyphicon-user"></span>
-			&nbsp;Manage Admins</a></li>
-			<li><a href="#">
-			<span class="glyphicon glyphicon-comment"></span>
-			&nbsp;Comments
-			<?php
+		</form>
+		</div>
+		
+	</div>
+</nav>
+<div class="Line" style="height: 10px; background: #27aae1;"></div>
+<div class="container-fluid">
+<div class="row">
+	
+	<div class="col-sm-2">
+	<br><br>
+	<ul id="Side_Menu" class="nav nav-pills nav-stacked">
+	<li class="active">
+	<a href="Dashboard.php">
+	<span class="glyphicon glyphicon-th"></span>
+	&nbsp;Dashboard</a></li>
+	<li><a href="AddNewPost.php">
+	<span class="glyphicon glyphicon-list-alt"></span>
+	&nbsp;Add New Post</a></li>
+	<li><a href="Categories.php">
+	<span class="glyphicon glyphicon-tags"></span>
+	&nbsp;Categories</a></li>
+	<li><a href="Admins.php">
+	<span class="glyphicon glyphicon-user"></span>
+	&nbsp;Manage Admins</a></li>
+	<li><a href="Comments.php">
+	<span class="glyphicon glyphicon-comment"></span>
+	&nbsp;Comments
+<?php
 $ConnectingDB;
 $QueryTotal="SELECT COUNT(*) FROM comments WHERE status='OFF'";
 $ExecuteTotal=mysql_query($QueryTotal);
@@ -83,41 +83,40 @@ if($Total>0){
 </span>
 		
 <?php } ?>
-			</a>	
-			</li>
-			<li><a href="#" target="_Blank">
-			<span class="glyphicon glyphicon-equalizer"></span>
-			&nbsp;Live Blog</a></li>
-			<li><a href="#">
-			<span class="glyphicon glyphicon-log-out"></span>
-			&nbsp;Logout</a></li>	
-				
-			</ul>
+	</a>	
+	</li>
+	<li><a href="Blog.php?Page=1" target="_Blank">
+	<span class="glyphicon glyphicon-equalizer"></span>
+	&nbsp;Live Blog</a></li>
+	<li><a href="Logout.php">
+	<span class="glyphicon glyphicon-log-out"></span>
+	&nbsp;Logout</a></li>	
+		
+	</ul>
+	
+	</div> <!-- Ending of Side area -->
+	<div class="col-sm-10"> <!--Main Area-->
+	<h1>Admin Dashboard</h1>
+	
+	<div><?php echo Message();
+	      echo SuccessMessage();
+	?></div>	
+	
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>No</th>
+			<th>Post Title</th>
+			<th>Date &Time</th>
+			<th>Author</th>
+			<th>Category</th>
+			<th>Banner</th>
+			<th>Comments</th>
+			<th>Action</th>
+			<th>Details</th>
 			
-			
-			
-			
-			</div> <!-- Ending of Side area -->
-			<div class="col-sm-10"> <!--Main Area-->
-			<h1>Admin Dashboard</h1>
-			
-				
-			
-		<div class="table-responsive">
-			<table class="table table-striped table-hover">
-				<tr>
-					<th>No</th>
-					<th>Post Title</th>
-					<th>Date &Time</th>
-					<th>Author</th>
-					<th>Category</th>
-					<th>Banner</th>
-					<th>Comments</th>
-					<th>Action</th>
-					<th>Details</th>
-					
-				</tr>
-				<?php
+		</tr>
+<?php
 $ConnectingDB;
 $ViewQuery="SELECT * FROM admin_panel ORDER BY id desc;";
 $Execute=mysql_query($ViewQuery);
@@ -196,27 +195,22 @@ if($TotalUnApproved>0){
 	</a>
 	</td>
 	</tr>
-	
-	
 <?php } ?>
-
-			</table>
-		</div>
-			
-				
-			</div> <!-- Ending of Main Area-->
-			
-		</div> <!-- Ending of Row-->
-			
-		</div> <!-- Ending of Container-->
+	</table>
+</div>
+	
+	    
+	</div> <!-- Ending of Main Area-->
+	
+</div> <!-- Ending of Row-->
+	
+</div> <!-- Ending of Container-->
 		<div id="Footer">
 		<hr><p>  Swapnil Sharma &copy;2017-2020 --- All right reserved.
 		</p>	
 		</div>
 		<div style="height: 10px; background: #27AAE1;"></div> 
-
-
-				
+			
 	</body>
 	<script src="vendors/js/jquery.min.js"></script>
     <script src="vendors/js/bootstrap.min.js"></script>
