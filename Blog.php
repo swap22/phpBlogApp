@@ -181,7 +181,7 @@ Comments: <?php echo $TotalApproved;?>
 		</div> <!--Main Blog Area Ending-->
 		<div class="col-sm-offset-1 col-sm-3"> <!--Side Area -->
 			<h2>About me </h2>
-	<img class=" img-responsive img-circle imageicon" src="images/Bunny.jpg">		
+	<img class=" img-responsive img-circle imageicon" src="resources/images/1.jpg">		
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
 		, sed do eiusmod tempor incididunt ut labore et dolore magna
 		aliqua. Ut enim ad minim veniam, quis nostrud exercitation ul
